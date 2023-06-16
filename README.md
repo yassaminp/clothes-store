@@ -1,2 +1,2 @@
-# clothes store
+# clothes store landing page
  
