@@ -1,0 +1,438 @@
+.logo{
+    grid-row: 1/2;
+    grid-column: 1/2;
+    padding: 1rem;
+
+    img{
+        width: 10rem;
+        height: 100%;
+    }
+}
+.heading{
+    grid-row: 2/3;
+    grid-column: 1/-1;
+    text-align: center;
+    
+
+    &-title{
+        font-size: size(xl) * 1.5;
+        text-transform: capitalize;
+        font-family: 'Dancing Script', cursive;
+        color: lighten(color(first),10%);
+        letter-spacing: 2px;
+
+    }
+}
+.dropdown-li{
+    position: relative;
+    display: inline-flex;
+    z-index: 10;
+
+    &::after{
+        content:'\f078' ;
+        font-family: 'Font Awesome 5 Free';
+        font-weight: bold;
+        color: color(first);
+    }
+
+    &:hover .dropdown{
+        visibility: visible;
+        opacity: 1;
+    }
+}
+.dropdown{
+    position: absolute;
+    top: 3rem;
+    width: 10rem;
+    background-color: darken(color(third) , 10%);
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: 0.4rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s linear;
+
+    &::before{
+        content: '';
+
+        position: absolute;
+        left: 7.7rem;
+        top: -1.3rem;
+        border-left: 15px solid transparent;
+        border-right: 15px solid  transparent;
+        border-bottom: 15px solid darken(color(third) , 10%);
+    }
+
+    &-item{
+        list-style: none;
+        margin: 0.8rem 0;
+        font-size: size(md);
+        font-weight: 600;
+    }
+    &-link{
+        color: color(first);
+        transition: color 0.5s;
+        &:hover{
+            color:lighten(color(first),30%);
+        }
+    }
+}
+.slideshow{
+    grid-column: 1/-1;
+    grid-row: 2/3;
+    position: relative;
+    height:80vh;
+    width: 100%;
+
+    @include response(md){
+        height: 65vh;
+    }
+    @include response(sm){
+        height: 50vh;
+    }
+
+    &-slide{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: inherit;
+        height: inherit;
+        visibility: hidden;
+        opacity: 0;
+        animation: slideshow 20s linear infinite;
+        
+
+        img{
+            width: inherit;
+            height: inherit;
+            object-fit: cover;
+            
+        }
+        
+
+    }
+    &-content{
+        max-width: 40rem;
+        padding: 5rem;
+        background-color: rgba(color(second) , 0.8);
+        position: absolute;
+        bottom: 6rem;
+        left: 6rem;
+
+        @include response(md){
+            padding: 1rem;
+            bottom: 2rem;
+            left: 2rem;
+        }
+
+        @include response(lg){
+            padding: 2rem;
+        }
+        
+        
+        h1{
+            font-size: size(xl);
+            color: color(first);
+            text-transform: capitalize;
+            @include response(lg){
+                font-size: size(lg);
+            }
+        }
+        p{
+            font-size: size(md);
+            @include response(lg){
+                font-size: size(sm);
+            }
+        }
+    }
+}
+
+$animList : 1 0s , 2 4s , 3 8s , 4 12s , 5 16s;
+
+@each $item in $animList {
+    .slideshow-slide:nth-child(#{nth($item , 1)}){
+        animation-delay:nth($item , 2 ) ;
+    }
+}
+
+@keyframes slideshow {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+    2% {
+        opacity: 1;
+        visibility: visible;
+    }
+    18% {
+        opacity: 1;
+        visibility: visible;
+    }
+    20% {
+        opacity: 0;
+        visibility: hidden;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.product-wrapper{
+    @include flexposition;
+    width: 100%;
+    
+    .product{
+        position: relative;
+        text-align: center;
+        width: 28%;
+        
+
+        &:hover img{
+            opacity: 0.5;
+        }
+
+        &:hover .product-description{
+            opacity: 1;
+            visibility: visible;
+        }
+
+        img{
+            width: 100%;
+            transition: all 0.4s linear;
+            
+        }
+
+        &-description{
+            background-color: lighten(color(first) , 70%);
+            padding: 1.5rem;
+            border: 2px solid color(first);
+            border-radius: 0.5rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50% , -50%);
+            color: color(first);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.6s linear;
+
+            @include response(md){
+                padding: 0.6rem;
+            }
+
+            &-title{
+                font-size: size(md);
+                text-transform: capitalize;
+
+                @include response(lg){
+                    font-size: size(sm) ;
+                }
+                @include response(md){
+                    font-size: size(xs) ;
+                }
+            }
+
+            &-price{
+                font-size: size(md)- 0.5rem;
+                font-weight: 700;
+                margin: 0.8rem 0;
+                @include response(md){
+                    margin: 0.2rem 0;
+                }
+
+            }
+
+            &-btn{
+                width: 100%;
+                padding: 0.3rem 0.7rem;
+                background-color: transparent;
+                border: 2px solid color(fourth);
+                outline: none;
+                font-size: size(xs);
+                cursor: pointer;
+                font-weight: 600;
+
+                &:hover{
+                    background-color: transparentize(color(first), .9);
+                }
+
+                @include response(lg){
+                    font-size: size(xs) - 0.5rem;
+                }
+                
+            }
+        }
+    }
+}
+
+.btn{
+    font-size: size(xs);
+    width: 16rem;
+    height: 4rem;
+    color: color(first);
+    @include flexposition(space-around);
+    position: relative;
+
+    &:hover .btn-bg{
+        width: 18rem;
+    }
+    &:hover .btn-text{
+        color: color(third);
+    }
+    &:hover .btn-arrow{
+        transform: translateX(1rem);
+    }
+    &:hover .btn-line-1{
+        width: 2rem;
+    }
+
+    &-bg{
+        position: absolute;
+        left: 0;
+        background-color: color(first);
+        width: 4rem;
+        height: 4rem;
+        border-radius: 5rem;
+        transition: width 0.4s;
+    }
+    &-text{
+        text-transform: uppercase;
+        font-weight:700 ;
+        z-index: 20;
+        transition: all 0.4s;
+    }
+
+    &-arrow{
+        @include flexposition;
+        .btn-line{
+            background-color: color(third);
+            height: 0.2rem;
+            position: absolute;
+            transform-origin: right;
+            transition: transform 0.4s;
+            
+
+            &-2{
+                width: 1rem;
+                transform: rotateZ(45deg);
+            }
+            &-1{
+                width: 0;
+                transform: translateX(-0.7rem);
+                transition: transform 0.4s;
+                
+            }
+            &-3{
+                width: 1rem;
+                transform: rotateZ(-45deg);
+            }
+        }
+    }
+}
+
+.footer-nav{
+    @include liststyle;
+    text-align: left;
+    width: 25%;
+    @include response(lg){
+        width: 35%;
+        padding:0 3rem;
+    }
+}
+.contact-list{
+    @include liststyle;
+    text-align: right;
+    width:25%;
+    @include response(lg){
+        width: 35%;
+        padding:0 3rem;
+    }
+}
+
+.contact{
+
+    @include response(lg){
+        padding: 0 8rem;
+        order: 1;
+        width: 70%;
+    }
+    text-align: center;
+    color: color(first);
+    width: 45%;
+
+    &-heading{
+        font-size: size(xl) ;
+        margin: 2rem;
+        font-weight: 800;
+    }
+    
+    &-paragraph{
+        font-size: size(lg);
+    }
+
+    .inputs-group{
+        display: flex;
+        input{
+            padding: 1rem;
+            margin: 0.7rem 0.5rem;
+            font-size: size(xs);
+            border: 0.1rem solid color(first);
+            border-radius: 0.3rem;
+            outline: none;
+        }
+
+        &-text{
+            width: 50%;
+        }
+
+        &-email{
+            width: 60%;
+        }
+        &-btn{
+            width: 40%;
+            cursor: pointer;
+            background-color: lighten(color(first) , 30%);
+            color: color(third);
+            transition: all 0.5s;
+
+            &:hover{
+                background-color: lighten(color(first) , 10%);
+            }
+        }
+
+
+        
+    }
+}
+.social-icons{
+    width: 100%;
+    @include flexposition(space-around);
+    margin: 2rem 0;
+
+    &-item{
+        list-style: none;
+        
+    }
+    &-link{
+       width: 4rem;
+       height: 4rem;
+       font-size: size(lg);
+        border: 1px solid color(first);
+        border-radius: 50%;
+        @include flexposition;
+        transition: opacity 0.4s;
+
+        &:hover{
+            opacity: 0.8;
+        }
+    }
+}
+$socialiconsColor: 1 #3b5998, 2 #b31217 , 3 #dc4241 , 4 #55acee , 5 #517fa4 , 6 #0077b5 ;
+
+@each $color in $socialiconsColor{
+    .social-icons-item:nth-child(#{nth($color , 1)}) .social-icons-link{
+        color: nth($color , 2);
+        border-color: nth($color , 2);
+    }
+}
